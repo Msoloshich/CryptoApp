@@ -17,6 +17,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField ("String", "API_KEY", project.API_KEY)
         buildConfigField ("String", "API_BASE_URL", project.API_BASE_URL)
+        buildConfigField ("String", "IMAGE_BASE_URL", project.IMAGE_BASE_URL)
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
@@ -42,6 +47,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.databinding:databinding-runtime:4.2.2'
     testImplementation 'junit:junit:4.13.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'

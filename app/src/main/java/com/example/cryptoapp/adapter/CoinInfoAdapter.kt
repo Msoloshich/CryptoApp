@@ -19,6 +19,8 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
             notifyDataSetChanged()
         }
 
+    var onCoinClickListener: OnCoinClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.item_coin_info, parent, false
@@ -42,11 +44,18 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
                 }
             }
         }
+        holder.itemView.setOnClickListener{
+            onCoinClickListener?.onCoinClick(coin)
+        }
     }
 
     override fun getItemCount() = coinInfoList.size
 
     inner class CoinInfoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemCoinInfoBinding.bind(itemView);
+    }
+
+    interface OnCoinClickListener {
+        fun onCoinClick(coinPriceInfo: CoinPriceInfo)
     }
 }

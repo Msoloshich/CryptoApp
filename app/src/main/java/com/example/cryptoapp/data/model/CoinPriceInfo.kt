@@ -1,4 +1,4 @@
-package com.example.cryptoapp.pojo
+package com.example.cryptoapp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

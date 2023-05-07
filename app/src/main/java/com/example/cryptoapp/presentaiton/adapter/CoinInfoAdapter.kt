@@ -10,7 +10,6 @@ import com.example.cryptoapp.BuildConfig
 import com.example.cryptoapp.R
 import com.example.cryptoapp.databinding.ItemCoinInfoBinding
 import com.example.cryptoapp.domain.CoinInfo
-import com.example.cryptoapp.utils.convertTimeStampToTime
 import com.squareup.picasso.Picasso
 
 
@@ -42,8 +41,8 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
                     tvSymbols.text = String.format(symbolsTemplate, fromSymbol, toSymbol)
                     tvPrice.text = price
                     tvLastUpdate.text =
-                        String.format(lastUpdateTime, convertTimeStampToTime(lastUpdate))
-                    Picasso.get().load(BuildConfig.IMAGE_BASE_URL + imageUrl).into(ivLogoCoin)
+                        String.format(lastUpdateTime, lastUpdate)
+                    Picasso.get().load(imageUrl).into(ivLogoCoin)
                 }
             }
         }

@@ -1,13 +1,29 @@
 package com.example.cryptoapp.data.mapper
 
+import com.example.cryptoapp.BuildConfig
 import com.example.cryptoapp.data.database.CoinInfoDbModel
 import com.example.cryptoapp.data.network.model.CoinInfoDto
 import com.example.cryptoapp.data.network.model.CoinInfoJsonContainerDto
 import com.example.cryptoapp.data.network.model.CoinNamesListDto
 import com.example.cryptoapp.domain.CoinInfo
 import com.google.gson.Gson
+import java.sql.Date
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CoinMapper {
+
+    private fun convertTimeStampToTime(timestamp: Long?): String {
+        if (timestamp == null) return ""
+        val stamp = Timestamp(timestamp * 1000)
+        val date = Date(stamp.time)
+        val pattern = "HH:mm:ss"
+        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+        sdf.timeZone = TimeZone.getDefault()
+        return sdf.format(date)
+    }
+
     fun mapDtoToDbModel(dto: CoinInfoDto): CoinInfoDbModel =
         with(dto) {
             return CoinInfoDbModel(
@@ -18,7 +34,7 @@ class CoinMapper {
                 highDay,
                 lowDay,
                 lastMarket,
-                imageUrl,
+                BuildConfig.IMAGE_BASE_URL + imageUrl,
             )
         }
 
@@ -50,7 +66,7 @@ class CoinMapper {
                 fromSymbol,
                 toSymbol,
                 price,
-                lastUpdate,
+                convertTimeStampToTime(lastUpdate),
                 highDay,
                 lowDay,
                 lastMarket,

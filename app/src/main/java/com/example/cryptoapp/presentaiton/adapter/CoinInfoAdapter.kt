@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cryptoapp.BuildConfig
 import com.example.cryptoapp.R
 import com.example.cryptoapp.databinding.ItemCoinInfoBinding
-import com.example.cryptoapp.data.model.CoinPriceInfo
+import com.example.cryptoapp.domain.CoinInfo
+import com.example.cryptoapp.utils.convertTimeStampToTime
 import com.squareup.picasso.Picasso
 
 
 class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
-    var coinInfoList: List<CoinPriceInfo> = listOf()
+    var coinInfoList: List<CoinInfo> = listOf()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -39,8 +42,8 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
                     tvSymbols.text = String.format(symbolsTemplate, fromSymbol, toSymbol)
                     tvPrice.text = price
                     tvLastUpdate.text =
-                        String.format(lastUpdateTime, coin.getFormattedTime())
-                    Picasso.get().load(getFullImageUrl()).into(ivLogoCoin)
+                        String.format(lastUpdateTime, convertTimeStampToTime(lastUpdate))
+                    Picasso.get().load(BuildConfig.IMAGE_BASE_URL + imageUrl).into(ivLogoCoin)
                 }
             }
         }
@@ -52,10 +55,10 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
     override fun getItemCount() = coinInfoList.size
 
     inner class CoinInfoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = ItemCoinInfoBinding.bind(itemView);
+        val binding = ItemCoinInfoBinding.bind(itemView)
     }
 
     interface OnCoinClickListener {
-        fun onCoinClick(coinPriceInfo: CoinPriceInfo)
+        fun onCoinClick(coinPriceInfo: CoinInfo)
     }
 }

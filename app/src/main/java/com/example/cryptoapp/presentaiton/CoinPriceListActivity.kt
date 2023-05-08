@@ -31,9 +31,10 @@ class CoinPriceListActivity : AppCompatActivity() {
         }
         val rvCoinPriceList = binding.rvCoinPriceList
         rvCoinPriceList.adapter = adapter
+        rvCoinPriceList.itemAnimator = null
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(this) {
-            adapter.coinInfoList = it
+            adapter.submitList(it)
         }
     }
 }

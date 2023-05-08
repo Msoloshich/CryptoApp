@@ -44,7 +44,7 @@ class CoinDetailFragment : Fragment() {
                 tvLastUpdate.text = it.lastUpdate
                 tvFromSymbol.text = it.fromSymbol
                 tvToSymbol.text = it.toSymbol
-                Picasso.get().load(BuildConfig.IMAGE_BASE_URL + it.imageUrl).into(ivLogoCoin)
+                Picasso.get().load(it.imageUrl).into(ivLogoCoin)
             }
         }
     }
